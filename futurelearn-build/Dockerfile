@@ -26,9 +26,15 @@ RUN curl -sL https://deb.nodesource.com/setup_8.x | bash
 RUN wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | apt-key add - && \
   echo "deb https://artifacts.elastic.co/packages/5.x/apt stable main" | tee -a /etc/apt/sources.list.d/elastic-5.x.list
 
+# mitmproxy
+RUN curl -SL https://github.com/mitmproxy/mitmproxy/releases/download/v3.0.4/mitmproxy-3.0.4-linux.tar.gz \
+  | tar zxv -C /usr/local/bin
+
 RUN apt-get -qq update && \
   DEBIAN_FRONTEND=noninteractive apt-get install -y \
   build-essential \
+  chromium-browser \
+  chromium-chromedriver \
   elasticsearch=$ES_VERSION \
   git \
   imagemagick \
@@ -42,8 +48,10 @@ RUN apt-get -qq update && \
   oracle-java8-installer \
   postgresql-client \
   potrace \
+  redis-server \
   ruby2.5 \
   ruby2.5-dev \
+  tzdata \
   yarn
 
 RUN gem install bundler --no-document
