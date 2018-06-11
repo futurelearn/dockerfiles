@@ -1,5 +1,16 @@
 pipeline:
-  lint:
+  futurelearn-build:
+    group: lint
     image: projectatomic/dockerfile-lint
     commands:
       - dockerfile_lint -f futurelearn-build/Dockerfile
+  futurelearn-ruby:
+    group: lint
+    image: projectatomic/dockerfile-lint
+    commands:
+      - dockerfile_lint -f futurelearn-ruby/Dockerfile
+  futurelearn-drone:
+    group: lint
+    image: projectatomic/dockerfile-lint
+    commands:
+      - dockerfile_lint -f futurelearn-drone/Dockerfile
