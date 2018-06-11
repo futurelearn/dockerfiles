@@ -1,0 +1,5 @@
+pipeline:
+  lint:
+    image: projectatomic/dockerfile-lint
+    commands:
+      - dockerfile_lint -f futurelearn-build/Dockerfile
