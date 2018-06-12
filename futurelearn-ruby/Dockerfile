@@ -1,9 +1,13 @@
 FROM ruby:2.5.1-slim
 
+LABEL name="futurelearn-ruby"
+LABEL version="2.5.1"
+
 RUN apt-get update -qq && apt-get install -y \
   apt-transport-https \
   curl \
-  gpg
+  gpg \
+  && apt-get clean
 
 # Dependency for Yarn
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
@@ -24,4 +28,9 @@ RUN apt-get update -qq && apt-get install -y \
   nodejs \
   postgresql-client \
   potrace \
-  yarn
+  yarn \
+  && apt-get clean
+
+RUN gem install pry --no-document
+
+CMD ["/usr/local/bundle/bin/pry"]
