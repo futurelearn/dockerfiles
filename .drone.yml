@@ -1,9 +1,9 @@
 pipeline:
   futurelearn-build:
     group: lint
-    image: projectatomic/dockerfile-lint
+    image: hadolint/hadolint
     commands:
-      - dockerfile_lint -f futurelearn-build/Dockerfile
+      - < futurelearn-build/Dockerfile
   futurelearn-ruby:
     group: lint
     image: projectatomic/dockerfile-lint
