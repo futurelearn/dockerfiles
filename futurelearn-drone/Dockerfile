@@ -35,4 +35,5 @@ RUN apt-get update -qq && apt-get install -y \
   postgresql-client \
   potrace \
   yarn \
+  zip \
   && apt-get clean
