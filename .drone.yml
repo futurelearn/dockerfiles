@@ -1,16 +1,21 @@
 pipeline:
-  futurelearn-build:
-    group: lint
-    image: projectatomic/dockerfile-lint
-    commands:
-      - dockerfile_lint -f futurelearn-build/Dockerfile
-  futurelearn-ruby:
-    group: lint
-    image: projectatomic/dockerfile-lint
-    commands:
-      - dockerfile_lint -f futurelearn-ruby/Dockerfile
-  futurelearn-drone:
-    group: lint
+  lint:
     image: projectatomic/dockerfile-lint
     commands:
       - dockerfile_lint -f futurelearn-drone/Dockerfile
+
+  docker-build:
+    image: plugins/docker
+    repo: futurelearn/futurelearn-drone
+    dockerfile: futurelearn-drone/Dockerfile
+    tags:
+      - latest
+      - 2.5.1
+    secrets: [ docker_username, docker_password ]
+
+  notify:
+    image: plugins/slack
+    channel: drone-notifications
+    secrets: [ slack_webhook ]
+    when:
+     status: [ success, failure ]
