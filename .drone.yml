@@ -10,7 +10,7 @@ pipeline:
     dockerfile: futurelearn-drone/Dockerfile
     tags:
       - latest
-      - 2.5.1
+      - $$BRANCH
     secrets: [ docker_username, docker_password ]
 
   notify:
