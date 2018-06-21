@@ -1,9 +1,13 @@
 FROM ruby:2.5.1-slim
 
+LABEL Name=futurelearn-drone
+LABEL Version=2.5.1
+
 RUN apt-get update -qq && apt-get install -y \
   apt-transport-https \
   curl \
-  gpg
+  gpg \
+  && apt-get clean
 
 # Dependency for Yarn
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
@@ -30,4 +34,5 @@ RUN apt-get update -qq && apt-get install -y \
   phantomjs \
   postgresql-client \
   potrace \
-  yarn
+  yarn \
+  && apt-get clean
