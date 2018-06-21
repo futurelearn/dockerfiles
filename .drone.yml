@@ -4,14 +4,28 @@ pipeline:
     commands:
       - dockerfile_lint -f futurelearn-drone/Dockerfile
 
-  docker-build:
+  docker-build-branch:
     image: plugins/docker
     repo: futurelearn/futurelearn-drone
     dockerfile: futurelearn-drone/Dockerfile
     tags:
-      - latest
-      - $$BRANCH
+      - "${DRONE_BRANCH}"
     secrets: [ docker_username, docker_password ]
+    when:
+      branch:
+        exclude:
+          - master
+
+  docker-build-master:
+    image: plugins/docker
+    repo: futurelearn/futurelearn-drone
+    dockerfile: futurelearn-drone/Dockerfile
+    autotag: true
+    tags:
+      - latest
+    secrets: [ docker_username, docker_password ]
+    when:
+      branch: master
 
   notify:
     image: plugins/slack
