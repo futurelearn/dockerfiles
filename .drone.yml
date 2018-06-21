@@ -20,9 +20,9 @@ pipeline:
     image: plugins/docker
     repo: futurelearn/futurelearn-drone
     dockerfile: futurelearn-drone/Dockerfile
-    autotag: true
     tags:
       - latest
+      - "${DRONE_BUILD_NUMBER}"
     secrets: [ docker_username, docker_password ]
     when:
       branch: master
