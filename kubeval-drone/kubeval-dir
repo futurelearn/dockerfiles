@@ -1,0 +1,22 @@
+#!/bin/bash
+[[ -z $PLUGIN_DIRECTORY ]] && echo "Must set directory parameter." && exit 1
+
+RED='\033[0;31m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
+echo -e "Running against ${BLUE}${PLUGIN_DIRECTORY}${NC}"
+
+FILES=$(find $PLUGIN_DIRECTORY -regex "^.*/*.yaml\|*.yml$" -type f)
+
+ERROR=0
+for file in $FILES; do
+  /bin/kubeval $file < /dev/null
+  if [[ $? == 1 ]]; then
+    ERROR=1
+  fi
+done
+
+if [[ $ERROR == 1 ]]; then
+  echo -e "${RED}Errors found!${NC}"
+fi
