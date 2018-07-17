@@ -31,6 +31,6 @@ RUN apt-get update -qq && apt-get install -y \
   yarn \
   && apt-get clean
 
-RUN gem install pry --no-document
-
-CMD ["/usr/local/bundle/bin/pry"]
+RUN curl -sL https://github.com/cultureamp/parameter-store-exec/releases/download/v1.0.0/parameter-store-exec-v1.0.0-linux-amd64.tar.gz | tar zxv && \
+    chmod +x parameter-store-exec && \
+    mv parameter-store-exec /usr/local/bin/parameter-store-exec

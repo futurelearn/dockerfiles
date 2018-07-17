@@ -3,26 +3,29 @@ pipeline:
     image: projectatomic/dockerfile-lint
     commands:
       - dockerfile_lint -f futurelearn-drone/Dockerfile
+      - dockerfile_lint -f futurelearn-ruby/Dockerfile
 
-  docker-build-branch:
-    image: plugins/docker
-    repo: futurelearn/futurelearn-drone
-    dockerfile: futurelearn-drone/Dockerfile
-    tags:
-      - "${DRONE_BRANCH}"
-    secrets: [ docker_username, docker_password ]
-    when:
-      branch:
-        exclude:
-          - master
-
-  docker-build-master:
+  futurelearn-drone publish:
+    group: publish
     image: plugins/docker
     repo: futurelearn/futurelearn-drone
     dockerfile: futurelearn-drone/Dockerfile
     tags:
       - latest
       - "${DRONE_BUILD_NUMBER}"
+    secrets: [ docker_username, docker_password ]
+    when:
+      branch: master
+
+  futurelearn-ruby publish:
+    group: publish
+    image: plugins/docker
+    repo: futurelearn/futurelearn-ruby
+    dockerfile: futurelearn-ruby/Dockerfile
+    tags:
+      - latest
+      - "${DRONE_BUILD_NUMBER}"
+      - 2.5.1
     secrets: [ docker_username, docker_password ]
     when:
       branch: master
