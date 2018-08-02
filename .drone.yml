@@ -4,6 +4,7 @@ pipeline:
     commands:
       - dockerfile_lint -f futurelearn-drone/Dockerfile
       - dockerfile_lint -f futurelearn-ruby/Dockerfile
+      - dockerfile_lint -f warehouse-drone/Dockerfile
 
   futurelearn-drone publish:
     group: publish
@@ -26,6 +27,18 @@ pipeline:
       - latest
       - "${DRONE_BUILD_NUMBER}"
       - 2.5.1
+    secrets: [ docker_username, docker_password ]
+    when:
+      branch: master
+
+  warehouse-drone publish:
+    group: publish
+    image: plugins/docker
+    repo: futurelearn/warehouse-drone
+    dockerfile: warehouse-drone/Dockerfile
+    tags:
+      - latest
+      - "${DRONE_BUILD_NUMBER}"
     secrets: [ docker_username, docker_password ]
     when:
       branch: master
