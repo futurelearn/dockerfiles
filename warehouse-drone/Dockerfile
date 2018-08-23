@@ -14,6 +14,7 @@ RUN apt-get update -qq && apt-get install -y \
   libpq-dev \
   mysql-client \
   postgresql-client \
+  gawk \
   jq \
   parallel \
   && apt-get clean
