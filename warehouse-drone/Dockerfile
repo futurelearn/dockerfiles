@@ -17,4 +17,5 @@ RUN apt-get update -qq && apt-get install -y \
   gawk \
   jq \
   parallel \
+  python3-pip \
   && apt-get clean
