@@ -43,6 +43,18 @@ pipeline:
     when:
       branch: master
 
+  terraform-drone publish:
+    group: publish
+    image: plugins/docker
+    repo: futurelearn/terraform-drone
+    dockerfile: terraform-drone/Dockerfile
+    tags:
+      - latest
+      - "${DRONE_BUILD_NUMBER}"
+    secrets: [ docker_username, docker_password ]
+    when:
+      branch: master
+
   notify:
     image: plugins/slack
     channel: drone-notifications
