@@ -57,7 +57,7 @@ pipeline:
 
   notify:
     image: plugins/slack
-    channel: drone-notifications
+    channel: notifications
     secrets: [ slack_webhook ]
     when:
      status: [ success, failure ]
