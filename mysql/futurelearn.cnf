@@ -14,3 +14,4 @@ innodb_file_per_table          = 0
 tmp_table_size                 = 256MB
 max_heap_table_size            = 512MB
 table_open_cache               = 8000
+sql_mode                       = NO_ENGINE_SUBSTITUTION
