@@ -1,7 +1,7 @@
-FROM ruby:2.5.1-slim
+FROM ruby:2.5.3-slim
 
 LABEL name="warehouse-ruby"
-LABEL version="2.5.1"
+LABEL version="2.5.3"
 
 ENV LANG     C.UTF-8
 ENV LANGUAGE C.UTF-8

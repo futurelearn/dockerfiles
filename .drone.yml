@@ -14,7 +14,7 @@ pipeline:
     tags:
       - latest
       - "${DRONE_BUILD_NUMBER}"
-      - 2.5.1
+      - 2.5.3
     secrets: [ docker_username, docker_password ]
     when:
       branch: master
@@ -27,7 +27,7 @@ pipeline:
     tags:
       - latest
       - "${DRONE_BUILD_NUMBER}"
-      - 2.5.1
+      - 2.5.3
     secrets: [ docker_username, docker_password ]
     when:
       branch: master
@@ -40,7 +40,7 @@ pipeline:
     tags:
       - latest
       - "${DRONE_BUILD_NUMBER}"
-      - 2.5.1
+      - 2.5.3
     secrets: [ docker_username, docker_password ]
     when:
       branch: master
@@ -53,7 +53,7 @@ pipeline:
     tags:
       - latest
       - "${DRONE_BUILD_NUMBER}"
-      - 2.5.1
+      - 2.5.3
     secrets: [ docker_username, docker_password ]
     when:
       branch: master

@@ -9,7 +9,7 @@ a large image.
 
 Built from Ubuntu 14.04 (Trusty) base image.
 
- - Ruby 2.5.1
+ - Ruby 2.5.3
  - Bundler
  - Java 8
  - MySQL 5.6

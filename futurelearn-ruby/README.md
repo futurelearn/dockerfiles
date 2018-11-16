@@ -5,7 +5,7 @@ should be used as a base image only.
 
 Currently includes:
 
-Ruby 2.5.1
+Ruby 2.5.3
 NodeJS 8
 Yarn
 
