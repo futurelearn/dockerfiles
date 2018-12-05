@@ -1,7 +1,7 @@
 FROM ruby:2.5.3
 
-ENV TF_VERSION=0.11.8
-ENV SOPS_VERSION=3.1.1
+ENV TF_VERSION=0.11.10
+ENV SOPS_VERSION=3.2.0
 
 RUN apt-get update -qq && apt-get install -y zip parallel
 
