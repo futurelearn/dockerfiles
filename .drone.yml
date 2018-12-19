@@ -22,8 +22,8 @@ pipeline:
   futurelearn-drone publish ecr:
     group: publish
     image: plugins/ecr
+    region: eu-west-1
     repo: 695769953266.dkr.ecr.eu-west-1.amazonaws.com/futurelearn-drone
-    registry: 695769953266.dkr.ecr.eu-west-1.amazonaws.com
     dockerfile: futurelearn-drone/Dockerfile
     tags:
       - sc-testing-ecr
