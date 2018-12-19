@@ -19,6 +19,19 @@ pipeline:
     when:
       branch: master
 
+  futurelearn-drone publish ecr:
+    group: publish
+    image: plugins/ecr
+    settings:
+      repo: 695769953266.dkr.ecr.eu-west-1.amazonaws.com/futurelearn-drone
+      registry: 695769953266.dkr.ecr.eu-west-1.amazonaws.com
+      dockerfile: path/to/Dockerfile
+      tags:
+        - latest
+        - "${DRONE_BUILD_NUMBER}"
+    when:
+      branch: master
+
   futurelearn-ruby publish:
     group: publish
     image: plugins/docker
