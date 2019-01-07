@@ -1,7 +1,7 @@
-FROM ruby:2.5.3-slim
+FROM ruby:2.6.0-slim
 
 LABEL Name=futurelearn-drone
-LABEL Version=2.5.3
+LABEL Version=2.6.0
 
 RUN apt-get update -qq && apt-get install -y \
   apt-transport-https \
