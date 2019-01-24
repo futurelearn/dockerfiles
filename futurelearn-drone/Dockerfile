@@ -16,9 +16,6 @@ RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources
 # Get recent NodeJS
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash
 
-# mitmproxy
-RUN curl -SL https://github.com/mitmproxy/mitmproxy/releases/download/v3.0.4/mitmproxy-3.0.4-linux.tar.gz | tar zxv -C /usr/local/bin
-
 RUN apt-get update -qq && apt-get install -y \
   build-essential \
   chromedriver \
