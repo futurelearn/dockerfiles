@@ -3,6 +3,9 @@ FROM ruby:2.5.3-slim
 LABEL Name=futurelearn-drone
 LABEL Version=2.5.3
 
+RUN gem update --system
+RUN gem install bundler
+
 RUN apt-get update -qq && apt-get install -y \
   apt-transport-https \
   curl \
