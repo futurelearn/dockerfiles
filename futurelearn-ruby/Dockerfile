@@ -16,6 +16,9 @@ RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources
 # Get recent NodeJS
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash
 
+# Fix for https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=863199
+RUN for i in $(seq 1 8); do mkdir -p "/usr/share/man/man${i}"; done
+
 RUN apt-get update -qq && apt-get install -y \
   build-essential \
   default-libmysqlclient-dev \
