@@ -21,7 +21,6 @@ RUN for i in $(seq 1 8); do mkdir -p "/usr/share/man/man${i}"; done
 
 RUN apt-get update -qq && apt-get install -y \
   build-essential \
-  chromedriver \
   default-libmysqlclient-dev \
   git \
   imagemagick \
@@ -36,4 +35,11 @@ RUN apt-get update -qq && apt-get install -y \
   potrace \
   yarn \
   zip \
+  && apt-get clean
+
+ENV CHROME_PACKAGE_VERSION="70.0.3538.110-1~deb9u1"
+RUN apt-get update -qq && apt-get install -y \
+  chromedriver=$CHROME_PACKAGE_VERSION \
+  chromium-driver=$CHROME_PACKAGE_VERSION \
+  chromium=$CHROME_PACKAGE_VERSION \
   && apt-get clean
