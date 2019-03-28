@@ -1,7 +1,7 @@
-FROM ruby:2.5.3-slim
+FROM ruby:2.5.5-slim
 
 LABEL name="futurelearn-ruby"
-LABEL version="2.5.3"
+LABEL version="2.5.5"
 
 RUN apt-get update -qq && apt-get install -y \
   apt-transport-https \
