@@ -8,7 +8,7 @@ Ensure you have [Docker installed](https://docs.docker.com/install/).
 
 Move into the directory of the image you wish to build and run:
 
-`docker build --rm futurelearn/<name of image>:<tag> .`
+`docker build --rm -t futurelearn/<name of image>:<tag> .`
 
 The image will be available for you to use locally.
 
