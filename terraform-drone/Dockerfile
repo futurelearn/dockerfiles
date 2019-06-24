@@ -1,6 +1,6 @@
 FROM ruby:2.5.5
 
-ENV TF_VERSION=0.12.0
+ENV TF_VERSION=0.12.2
 
 RUN apt-get update -qq && apt-get install -y zip
 
