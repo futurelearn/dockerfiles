@@ -21,7 +21,6 @@ RUN for i in $(seq 1 8); do mkdir -p "/usr/share/man/man${i}"; done
 
 RUN apt-get update -qq && apt-get install -y \
   build-essential \
-  chromedriver \
   default-libmysqlclient-dev \
   git \
   imagemagick \
@@ -29,7 +28,7 @@ RUN apt-get update -qq && apt-get install -y \
   libpq-dev \
   libxml2-dev \
   libxslt-dev \
-  mysql-client \
+  default-mysql-client \
   nodejs \
   phantomjs \
   postgresql-client \
@@ -37,3 +36,12 @@ RUN apt-get update -qq && apt-get install -y \
   yarn \
   zip \
   && apt-get clean
+
+# Install Chrome for Selenium
+RUN curl https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -o /chrome.deb
+RUN dpkg -i /chrome.deb || apt-get install -yf
+RUN rm /chrome.deb
+
+# Install chromedriver for Selenium
+RUN curl https://chromedriver.storage.googleapis.com/76.0.3809.68/chromedriver_linux64.zip -o /usr/local/bin/chromedriver
+RUN chmod +x /usr/local/bin/chromedriver
