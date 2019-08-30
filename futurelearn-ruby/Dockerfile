@@ -4,6 +4,7 @@ LABEL name="futurelearn-ruby"
 LABEL version="2.6.3"
 
 ENV PARAMETER_STORE_EXEC_VERSION="1.1.0"
+ENV BUNDLER_VERSION="1.17.3"
 
 RUN apt-get update -qq && apt-get install -y \
   apt-transport-https \
@@ -36,6 +37,9 @@ RUN apt-get update -qq && apt-get install -y \
   potrace \
   yarn \
   && apt-get clean
+
+# Get latest bundler
+RUN gem install bundler --no-document -v $BUNDLER_VERSION
 
 RUN curl -sL https://github.com/cultureamp/parameter-store-exec/releases/download/v${PARAMETER_STORE_EXEC_VERSION}/parameter-store-exec-v${PARAMETER_STORE_EXEC_VERSION}-linux-amd64.tar.gz | tar zxv && \
     chmod +x parameter-store-exec && \
