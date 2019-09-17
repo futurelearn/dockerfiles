@@ -5,6 +5,7 @@ LABEL version="2.6.3"
 
 ENV PARAMETER_STORE_EXEC_VERSION="1.1.0"
 ENV BUNDLER_VERSION="1.17.3"
+ENV GEOIPUPDATE_VERSION="4.0.6"
 
 RUN apt-get update -qq && apt-get install -y \
   apt-transport-https \
@@ -37,6 +38,12 @@ RUN apt-get update -qq && apt-get install -y \
   potrace \
   yarn \
   && apt-get clean
+
+# Geoipupdate package
+RUN curl -sSL https://github.com/maxmind/geoipupdate/releases/download/v${GEOIPUPDATE_VERSION}/geoipupdate_${GEOIPUPDATE_VERSION}_linux_amd64.deb \
+  -o geoipupdate_${GEOIPUPDATE_VERSION}_linux_amd64.deb && \
+  dpkg -i geoipupdate_${GEOIPUPDATE_VERSION}_linux_amd64.deb && \
+  rm geoipupdate_${GEOIPUPDATE_VERSION}_linux_amd64.deb
 
 # Get latest bundler
 RUN gem install bundler --no-document -v $BUNDLER_VERSION
