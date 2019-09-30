@@ -51,3 +51,6 @@ RUN gem install bundler --no-document -v $BUNDLER_VERSION
 RUN curl -sL https://github.com/cultureamp/parameter-store-exec/releases/download/v${PARAMETER_STORE_EXEC_VERSION}/parameter-store-exec-v${PARAMETER_STORE_EXEC_VERSION}-linux-amd64.tar.gz | tar zxv && \
     chmod +x parameter-store-exec && \
     mv parameter-store-exec /usr/local/bin/parameter-store-exec
+
+ENTRYPOINT ["parameter-store-exec"]
+CMD ["irb"]
