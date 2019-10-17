@@ -1,7 +1,9 @@
-FROM ruby:2.6.3-slim
+ARG RUBY_VERSION=2.6.5
+
+FROM ruby:${RUBY_VERSION}-slim
 
 LABEL name="futurelearn-ruby"
-LABEL version="2.6.3"
+LABEL version=${RUBY_VERSION}
 
 ENV PARAMETER_STORE_EXEC_VERSION="1.1.0"
 ENV BUNDLER_VERSION="1.17.3"
