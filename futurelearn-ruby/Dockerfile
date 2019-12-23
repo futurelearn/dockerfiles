@@ -5,7 +5,6 @@ FROM ruby:${RUBY_VERSION}-slim
 LABEL name="futurelearn-ruby"
 LABEL version=${RUBY_VERSION}
 
-ENV PARAMETER_STORE_EXEC_VERSION="1.1.0"
 ENV BUNDLER_VERSION="1.17.3"
 ENV GEOIPUPDATE_VERSION="4.0.6"
 
@@ -51,9 +50,4 @@ RUN curl -sSL https://github.com/maxmind/geoipupdate/releases/download/v${GEOIPU
 # Get latest bundler
 RUN gem install bundler --no-document -v $BUNDLER_VERSION
 
-RUN curl -sL https://github.com/cultureamp/parameter-store-exec/releases/download/v${PARAMETER_STORE_EXEC_VERSION}/parameter-store-exec-v${PARAMETER_STORE_EXEC_VERSION}-linux-amd64.tar.gz | tar zxv && \
-    chmod +x parameter-store-exec && \
-    mv parameter-store-exec /usr/local/bin/parameter-store-exec
-
-ENTRYPOINT ["parameter-store-exec"]
 CMD ["irb"]
