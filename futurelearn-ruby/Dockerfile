@@ -33,6 +33,7 @@ RUN apt-get update -qq && apt-get install -y \
   imagemagick \
   libgsl0-dev \
   libpq-dev \
+  libssl-dev \
   libxml2-dev \
   libxslt-dev \
   nodejs \
