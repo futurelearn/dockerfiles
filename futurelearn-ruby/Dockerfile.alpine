@@ -1,0 +1,30 @@
+ARG RUBY_VERSION=2.6.5
+
+FROM golang:latest AS builder
+RUN git clone https://github.com/maxmind/geoipupdate
+WORKDIR /go/geoipupdate/cmd/geoipupdate
+RUN CGO_ENABLED=0 go build -ldflags '-X main.defaultConfigFile=/usr/local/etc/GeoIP.conf -X main.defaultDatabaseDirectory=/usr/local/share/GeoIP -X "main.version=unknown"'
+
+FROM ruby:${RUBY_VERSION}-alpine3.10
+
+ENV BUNDLER_VERSION="1.17.3"
+
+# Not entirely convinced we need all these dependencies, this should be tested
+RUN apk add --no-cache \
+  build-base \
+  geoip \
+  git \
+  imagemagick-dev \
+  mariadb-dev \
+  nodejs \
+  openssl-dev \
+  postgresql-dev \
+  yarn \
+  zlib-dev
+
+RUN gem install bundler --no-document -v $BUNDLER_VERSION
+
+# Geoipupdate
+COPY --from=builder /go/geoipupdate/cmd/geoipupdate/geoipupdate /usr/bin/geoipupdate
+
+CMD ["irb"]
