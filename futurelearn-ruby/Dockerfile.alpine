@@ -25,9 +25,6 @@ RUN apk add --no-cache \
 RUN gem install bundler --no-document -v $BUNDLER_VERSION
 
 # Geoipupdate
-#
-# Needs to be compiled manually with CGO_ENABLED=0 set! Maybe could be done in
-# a multi-part build using a Go image?
 COPY --from=builder /go/geoipupdate/cmd/geoipupdate/geoipupdate /usr/bin/geoipupdate
 
 CMD ["irb"]
