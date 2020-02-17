@@ -28,14 +28,9 @@ RUN apt-get update -qq && \
   ruby-build $RUBY_VERSION /opt/ruby-$RUBY_VERSION && \
   apt-get clean
 
-ENV PATH /opt/ruby-$RUBY_VERSION/bin:$PATH
+RUN for i in $(ls /opt/ruby-2.6.5/bin); do ln -s /opt/ruby-2.6.5/bin/$i /usr/bin/$i; done
 
 RUN gem install bundler
-
-# don't create ".bundle" in all our apps
-ENV GEM_HOME /usr/local/bundle
-ENV BUNDLE_SILENCE_ROOT_WARNING=1 BUNDLE_APP_CONFIG="$GEM_HOME"
-ENV PATH $GEM_HOME/bin:$PATH
 
 # Dependency for Yarn
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
