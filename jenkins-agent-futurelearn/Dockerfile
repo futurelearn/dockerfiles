@@ -42,6 +42,7 @@ RUN curl -sL https://deb.nodesource.com/setup_10.x | bash
 # Fix for https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=863199
 RUN for i in $(seq 1 8); do mkdir -p "/usr/share/man/man${i}"; done && \
   apt-get update -qq && apt-get install -y \
+  awscli \
   chromedriver \
   default-libmysqlclient-dev \
   git \
@@ -53,11 +54,15 @@ RUN for i in $(seq 1 8); do mkdir -p "/usr/share/man/man${i}"; done && \
   mysql-client \
   nodejs \
   phantomjs \
+  pigz \
   postgresql-client \
   potrace \
   yarn \
   zip \
   && apt-get clean
+
+COPY s3-cache.sh /usr/bin/s3-cache
+RUN chmod +x /usr/bin/s3-cache
 
 USER jenkins
 WORKDIR /home/jenkins
