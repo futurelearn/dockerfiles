@@ -57,6 +57,12 @@ if [[ $1 == "rebuild" ]]; then
   echo "Finished! Exiting at $(date)" && exit 0
 elif [[ $1 == "restore" ]]; then
 
+  if [[ -n "$VERBOSE" ]]; then
+    echo "Will try the following two commands for cache download:"
+    echo "aws s3 cp --quiet s3://${CACHE_BUCKET}/${CACHE_PATH}/archive.tgz archive.tgz"
+    echo "aws s3 cp --quiet s3://${CACHE_BUCKET}/${FALLBACK_PATH}/archive.tgz archive.tgz"
+  fi
+
   if aws s3 cp --quiet "s3://${CACHE_BUCKET}/${CACHE_PATH}/archive.tgz archive.tgz"; then
     echo "Cache downloaded successfully."
   elif aws s3 cp --quiet "s3://${CACHE_BUCKET}/${FALLBACK_PATH}/archive.tgz archive.tgz"; then
