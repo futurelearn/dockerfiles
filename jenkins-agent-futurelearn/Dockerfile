@@ -46,6 +46,7 @@ RUN for i in $(seq 1 8); do mkdir -p "/usr/share/man/man${i}"; done && \
   chromedriver \
   default-libmysqlclient-dev \
   git \
+  groff \
   imagemagick \
   libgsl0-dev \
   libpq-dev \

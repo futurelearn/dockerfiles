@@ -1,5 +1,5 @@
 #!/bin/bash
-set -eo pipefail
+set -xeo pipefail
 
 if [ -z "$MOUNT" ]; then
   echo "Must specify directories to cache. Exiting!"
@@ -11,11 +11,7 @@ if [ -z "$CACHE_BUCKET" ]; then
   exit 1
 fi
 
-VERBOSE=""
-
-if [[ -n "$VERBOSE" && "$VERBOSE" == "true" ]]; then
-  VERBOSE="-v"
-fi
+AWS_OPTS="--quiet"
 
 # Convert forward slashes to escaped forward slashes
 SED_SAFE_GIT_BRANCH=$(echo "$GIT_BRANCH" | sed 's/\//\\\//g')
@@ -45,27 +41,21 @@ if [[ $1 == "rebuild" ]]; then
     echo "No paths found for cache. Moving on..."
     exit 0
   else
-    tar cf - "$PATHS" | pigz $VERBOSE > archive.tgz
+    tar cf - "$PATHS" | pigz > archive.tgz
   fi
 
   echo "Compression complete, uploading to S3"
 
-  aws s3 cp --quiet ./archive.tgz "s3://${CACHE_BUCKET}/${CACHE_PATH}/archive.tgz"
+  aws s3 cp $AWS_OPTS ./archive.tgz "s3://${CACHE_BUCKET}/${CACHE_PATH}/archive.tgz"
 
   echo "Upload completed!"
 
   echo "Finished! Exiting at $(date)" && exit 0
 elif [[ $1 == "restore" ]]; then
 
-  if [[ -n "$VERBOSE" ]]; then
-    echo "Will try the following two commands for cache download:"
-    echo "aws s3 cp --quiet s3://${CACHE_BUCKET}/${CACHE_PATH}/archive.tgz archive.tgz"
-    echo "aws s3 cp --quiet s3://${CACHE_BUCKET}/${FALLBACK_PATH}/archive.tgz archive.tgz"
-  fi
-
-  if aws s3 cp --quiet "s3://${CACHE_BUCKET}/${CACHE_PATH}/archive.tgz archive.tgz"; then
+  if aws s3 cp $AWS_OPTS "s3://${CACHE_BUCKET}/${CACHE_PATH}/archive.tgz" archive.tgz; then
     echo "Cache downloaded successfully."
-  elif aws s3 cp --quiet "s3://${CACHE_BUCKET}/${FALLBACK_PATH}/archive.tgz archive.tgz"; then
+  elif aws s3 cp $AWS_OPTS "s3://${CACHE_BUCKET}/${FALLBACK_PATH}/archive.tgz" archive.tgz; then
     echo "Cache downloaded successfully."
   else
     echo "Cannot find cache. Skipping!"
@@ -73,7 +63,7 @@ elif [[ $1 == "restore" ]]; then
   fi
 
   echo "Uncompressing cache file."
-  unpigz $VERBOSE < archive.tgz | tar $VERBOSE -xC .
+  unpigz < archive.tgz | tar -xC .
   echo "Cache uncompressed."
 
   echo "Finished! Exiting at $(date)" && exit 0
