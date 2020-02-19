@@ -11,6 +11,9 @@ if [ -z "$CACHE_BUCKET" ]; then
   exit 1
 fi
 
+echo "Checking credentials"
+aws sts get-caller-identity
+
 AWS_OPTS="--quiet"
 
 # Convert forward slashes to escaped forward slashes
