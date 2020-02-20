@@ -44,7 +44,7 @@ if [[ $1 == "rebuild" ]]; then
     echo "No paths found for cache. Moving on..."
     exit 0
   else
-    tar cf - "$PATHS" | pigz > archive.tgz
+    tar cf - $PATHS | pigz > archive.tgz
   fi
 
   echo "Compression complete, uploading to S3"
