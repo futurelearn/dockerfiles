@@ -26,6 +26,7 @@ RUN for i in $(seq 1 8); do mkdir -p "/usr/share/man/man${i}"; done
 
 RUN apt-get update -qq && apt-get install -y \
   build-essential \
+  clamdscan \
   default-libmysqlclient-dev \
   default-mysql-client \
   git \
@@ -49,5 +50,10 @@ RUN curl -sSL https://github.com/maxmind/geoipupdate/releases/download/v${GEOIPU
 
 # Get latest bundler
 RUN gem install bundler --no-document -v $BUNDLER_VERSION
+
+COPY clamd.conf /etc/clamav/clamd.conf
+COPY entrypoint.sh /opt/entrypoint.sh
+
+ENTRYPOINT ["/opt/entrypoint.sh"]
 
 CMD ["irb"]
