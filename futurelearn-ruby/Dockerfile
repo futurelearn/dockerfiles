@@ -6,7 +6,7 @@ LABEL name="futurelearn-ruby"
 LABEL version=${RUBY_VERSION}
 
 ENV BUNDLER_VERSION="1.17.3"
-ENV GEOIPUPDATE_VERSION="4.0.6"
+ENV GEOIPUPDATE_VERSION="4.3.0"
 
 # Fix for https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=863199
 RUN for i in $(seq 1 8); do mkdir -p "/usr/share/man/man${i}"; done
