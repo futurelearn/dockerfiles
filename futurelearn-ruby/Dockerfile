@@ -23,6 +23,7 @@ RUN apt-get update -qq && apt-get install -y \
   libssl-dev \
   libxml2-dev \
   libxslt-dev \
+  netcat-traditional \
   postgresql-client \
   potrace \
   && apt-get clean
