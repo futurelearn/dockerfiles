@@ -1,0 +1,38 @@
+entryPoints:
+  backend:
+    address: :${PORT}
+
+providers:
+  file:
+    filename: /etc/traefik/traefik.yaml
+
+http:
+  routers:
+    default:
+      service: backend
+      rule: "HostRegexp(`{catchall:.*}`)"
+      middlewares:
+        - backend
+  services:
+    backend:
+      loadBalancer:
+        servers:
+          - url: ${BACKEND_HOST}
+    errors:
+      loadBalancer:
+        passHostHeader: false
+        servers:
+          - url: ${STATIC_PAGES_HOST}
+  middlewares:
+    backend:
+      errors:
+        status:
+          - "400"
+          - "404"
+          - "413"
+          - "422"
+          - "500"
+          - "502"
+          - "503"
+        service: errors
+        query: "/errors/{status}.html"
