@@ -7,7 +7,7 @@ if [ -z "${STATIC_PAGES_HOST}" ]; then
 fi
 
 [ -z "${PORT}" ] && export PORT="80"
-[ -z "${BACKEND_HOST}" ] && export BACKEND_HOST="http://127.0.0.1/"
+[ -z "${BACKEND_HOST}" ] && export BACKEND_HOST="http://127.0.0.1:8080/"
 [ -z "${LOG_LEVEL}" ] && export LOG_LEVEL="ERROR"
 
 # shellcheck disable=SC2016
