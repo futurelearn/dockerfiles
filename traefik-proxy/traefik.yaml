@@ -14,9 +14,10 @@ http:
   routers:
     default:
       service: backend
-      rule: "HostRegexp(`{catchall:.*}`)"
+      rule: "HostRegexp(`{wildcard:.*}`)"
       middlewares:
-        - backend
+        - errors
+        - headers
   services:
     backend:
       loadBalancer:
@@ -28,7 +29,8 @@ http:
         servers:
           - url: ${STATIC_PAGES_HOST}
   middlewares:
-    backend:
+    # one middleware can't do multiple types so must be specified separately
+    errors:
       errors:
         status:
           - "400"
@@ -40,3 +42,7 @@ http:
           - "503"
         service: errors
         query: "/errors/{status}.html"
+    headers:
+      headers:
+        customRequestHeaders:
+          X-Forwarded-Proto: https
