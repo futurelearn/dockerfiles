@@ -9,8 +9,14 @@ fi
 [[ -z "${PORT}" ]]         && export PORT="80"
 [[ -z "${BACKEND_HOST}" ]] && export BACKEND_HOST="127.0.0.1"
 
+if [[ "${MAINTENANCE_MODE}" == "true" ]]; then
+  export TEMPLATE="/etc/nginx/maintenance.conf.template"
+else
+  export TEMPLATE="/etc/nginx/default.conf.template"
+fi
+
 # shellcheck disable=SC2016
-envsubst '${BACKEND_HOST} ${STATIC_PAGES_HOST} ${PORT}' < /etc/nginx/default.conf.template > /etc/nginx/conf.d/default.conf
+envsubst '${BACKEND_HOST} ${STATIC_PAGES_HOST} ${PORT}' < "${TEMPLATE}" > /etc/nginx/conf.d/default.conf
 
 REALIP_CONF_FILE="/etc/nginx/conf.d/http_realip.conf"
 
