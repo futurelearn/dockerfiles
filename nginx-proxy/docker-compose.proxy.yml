@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  proxy:
+    build:
+      context: ./
+    ports:
+      - 8080:8080
+    environment:
+      STATIC_PAGES_HOST: static.futurelearn.com
+      PORT: 8080
+      BACKEND_HOST: nginx
+
+  nginx:
+    image: nginx
+    ports:
+      - 80:80

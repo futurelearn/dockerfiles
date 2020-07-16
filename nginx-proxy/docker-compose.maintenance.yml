@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  proxy:
+    build:
+      context: ./
+    ports:
+      - 80:80
+    environment:
+      STATIC_PAGES_HOST: static.futurelearn.com
+      MAINTENANCE_MODE: "true"
