@@ -26,6 +26,7 @@ RUN apt-get update -qq && apt-get install -y \
   netcat-traditional \
   postgresql-client \
   potrace \
+  zip \
   && apt-get clean
 
 # Geoipupdate package
