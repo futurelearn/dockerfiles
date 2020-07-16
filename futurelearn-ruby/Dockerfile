@@ -14,6 +14,7 @@ RUN for i in $(seq 1 8); do mkdir -p "/usr/share/man/man${i}"; done
 RUN apt-get update -qq && apt-get install -y \
   build-essential \
   clamdscan \
+  curl \
   default-libmysqlclient-dev \
   default-mysql-client \
   git \
@@ -30,14 +31,10 @@ RUN apt-get update -qq && apt-get install -y \
   && apt-get clean
 
 # Geoipupdate package
-RUN apt-get install -y curl && \
-  curl -sSL https://github.com/maxmind/geoipupdate/releases/download/v${GEOIPUPDATE_VERSION}/geoipupdate_${GEOIPUPDATE_VERSION}_linux_amd64.deb \
+RUN curl -sSL https://github.com/maxmind/geoipupdate/releases/download/v${GEOIPUPDATE_VERSION}/geoipupdate_${GEOIPUPDATE_VERSION}_linux_amd64.deb \
   -o geoipupdate_${GEOIPUPDATE_VERSION}_linux_amd64.deb && \
   dpkg -i geoipupdate_${GEOIPUPDATE_VERSION}_linux_amd64.deb && \
-  rm geoipupdate_${GEOIPUPDATE_VERSION}_linux_amd64.deb && \
-  apt-get purge -y curl && \
-  apt-get autoremove -y && \
-  apt-get clean
+  rm geoipupdate_${GEOIPUPDATE_VERSION}_linux_amd64.deb
 
 # Get latest bundler
 RUN gem install bundler --no-document -v $BUNDLER_VERSION
