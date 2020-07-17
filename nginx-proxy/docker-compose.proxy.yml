@@ -10,6 +10,7 @@ services:
       STATIC_PAGES_HOST: static.futurelearn.com
       PORT: 8080
       BACKEND_HOST: nginx
+      API_SERVER_NAME: test.com
 
   nginx:
     image: nginx

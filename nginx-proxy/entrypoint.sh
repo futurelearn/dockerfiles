@@ -12,11 +12,16 @@ fi
 if [[ "${MAINTENANCE_MODE}" == "true" ]]; then
   export TEMPLATE="/etc/nginx/maintenance.conf.template"
 else
+  if [[ -z "${API_SERVER_NAME}" ]]; then
+    echo "ERROR: Must set API server name"
+    exit 1
+  fi
+
   export TEMPLATE="/etc/nginx/default.conf.template"
 fi
 
 # shellcheck disable=SC2016
-envsubst '${BACKEND_HOST} ${STATIC_PAGES_HOST} ${PORT}' < "${TEMPLATE}" > /etc/nginx/conf.d/default.conf
+envsubst '${BACKEND_HOST} ${STATIC_PAGES_HOST} ${PORT} ${API_SERVER_NAME}' < "${TEMPLATE}" > /etc/nginx/conf.d/default.conf
 
 REALIP_CONF_FILE="/etc/nginx/conf.d/http_realip.conf"
 
