@@ -6,6 +6,11 @@ if [[ -z "${STATIC_PAGES_BUCKET}" ]]; then
   exit 1
 fi
 
+if [[ -z "${API_SERVER_NAME}" ]]; then
+  echo "ERROR: must provide API_SERVER_NAME environment variable"
+  exit 1
+fi
+
 [[ -z "${PORT}" ]]         && export PORT="80"
 [[ -z "${BACKEND_HOST}" ]] && export BACKEND_HOST="127.0.0.1"
 
@@ -20,7 +25,7 @@ for error in 400 404 413 422 500 502 503; do
 done
 
 # shellcheck disable=SC2016
-envsubst '${BACKEND_HOST} ${PORT}' < "${TEMPLATE}" > /etc/nginx/conf.d/default.conf
+envsubst '${BACKEND_HOST} ${PORT} ${API_SERVER_NAME}' < "${TEMPLATE}" > /etc/nginx/conf.d/default.conf
 
 REALIP_CONF_FILE="/etc/nginx/conf.d/http_realip.conf"
 
