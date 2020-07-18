@@ -7,9 +7,9 @@ services:
     ports:
       - 8080:8080
     environment:
-      STATIC_PAGES_HOST: static.futurelearn.com
       PORT: 8080
       BACKEND_HOST: nginx
+      STATIC_PAGES_BUCKET: ${STATIC_PAGES_BUCKET} # set in .env file
 
   nginx:
     image: nginx

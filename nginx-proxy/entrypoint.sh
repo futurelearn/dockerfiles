@@ -1,8 +1,8 @@
 #!/bin/bash
 set -e
 
-if [[ -z "${STATIC_PAGES_HOST}" ]]; then
-  echo "ERROR: Must set STATIC_PAGES_HOST environment variable"
+if [[ -z "${STATIC_PAGES_BUCKET}" ]]; then
+  echo "ERROR: must provide STATIC_PAGES_BUCKET environment variable"
   exit 1
 fi
 
@@ -15,8 +15,12 @@ else
   export TEMPLATE="/etc/nginx/default.conf.template"
 fi
 
+for error in 400 404 413 422 500 502 503; do
+  curl -fsSL --retry 3 "https://${STATIC_PAGES_BUCKET}.s3.amazonaws.com/errors/${error}.html" -o "/app/public/system/errors/${error}.html"
+done
+
 # shellcheck disable=SC2016
-envsubst '${BACKEND_HOST} ${STATIC_PAGES_HOST} ${PORT}' < "${TEMPLATE}" > /etc/nginx/conf.d/default.conf
+envsubst '${BACKEND_HOST} ${PORT}' < "${TEMPLATE}" > /etc/nginx/conf.d/default.conf
 
 REALIP_CONF_FILE="/etc/nginx/conf.d/http_realip.conf"
 
