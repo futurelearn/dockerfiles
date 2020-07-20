@@ -7,5 +7,5 @@ services:
     ports:
       - 80:80
     environment:
-      STATIC_PAGES_HOST: static.futurelearn.com
+      STATIC_PAGES_BUCKET: ${STATIC_PAGES_BUCKET} # Set in .env file
       MAINTENANCE_MODE: "true"

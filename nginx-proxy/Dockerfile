@@ -1,5 +1,7 @@
 FROM nginx
 
+RUN mkdir -p /app/public/system/errors
+
 RUN apt-get update && apt-get install -y netcat curl
 
 COPY entrypoint.sh /opt/entrypoint.sh
