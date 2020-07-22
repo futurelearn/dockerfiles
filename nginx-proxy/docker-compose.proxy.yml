@@ -10,6 +10,7 @@ services:
       PORT: 8080
       BACKEND_HOST: nginx
       STATIC_PAGES_BUCKET: ${STATIC_PAGES_BUCKET} # set in .env file
+      API_SERVER_NAME: ${API_SERVER_NAME} # set in .env file
 
   nginx:
     image: nginx
