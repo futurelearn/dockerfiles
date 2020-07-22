@@ -7,5 +7,6 @@ services:
     ports:
       - 80:80
     environment:
+      API_SERVER_NAME: ${API_SERVER_NAME}
       STATIC_PAGES_BUCKET: ${STATIC_PAGES_BUCKET} # Set in .env file
       MAINTENANCE_MODE: "true"
