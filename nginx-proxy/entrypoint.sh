@@ -21,7 +21,7 @@ else
 fi
 
 for error in 400 404 413 422 500 502 503; do
-  curl -fsSL --retry 3 "https://${STATIC_PAGES_BUCKET}.s3.amazonaws.com/errors/${error}.html" -o "/app/public/system/errors/${error}.html"
+  curl -fsSL --retry 6 "https://${STATIC_PAGES_BUCKET}.s3.amazonaws.com/errors/${error}.html" -o "/app/public/system/errors/${error}.html"
 done
 
 # shellcheck disable=SC2016
