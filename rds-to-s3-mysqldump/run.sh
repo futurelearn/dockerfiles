@@ -57,7 +57,7 @@ curl -sSX POST -H "Content-type: application/json" \
 
 TOKEN=$(aws rds generate-db-auth-token --hostname "${RDS_HOSTNAME}" --port "${MYSQL_PORT}" --region "${AWS_REGION}" --username "${MYSQL_USERNAME}")
 AWS_CP_OPTS="--only-show-errors"
-KEY_TIMESTAMP=$(date +%F_%H-%M-%S)
+KEY_TIMESTAMP=$(date +%F)
 
 mysqldump \
   --host="${RDS_HOSTNAME}" \
