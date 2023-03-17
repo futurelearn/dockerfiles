@@ -1,5 +1,9 @@
 # dockerfiles
 
+> **Warning**
+> 
+> This repo is no longer in use - container images are now built from the [terraform repo](https://github.com/futurelearn/terraform/tree/master/containers) and pushed to Github Container Registry.
+
 A collection of Dockerfiles for FutureLearn builds.
 
 ## Building an image
